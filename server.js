@@ -24,7 +24,7 @@ const contacts = [
 ];
 
 app.get("/", (req, res) => {
-  res.send("Bienvenu dans le serveur express");
+  res.send(contacts);
 });
 
 const PORT = process.env.PORT || 3000;
