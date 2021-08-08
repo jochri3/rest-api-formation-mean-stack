@@ -35,10 +35,9 @@ app.get("/api/contacts/:id", (req, res) => {
   const id = req.params.id;
   const contact = contacts.find((contact) => contact.id == id);
   if (contact) {
-    res.send(contact);
-  } else {
-    res.sendStatus(404);
+    return res.send(contact);
   }
+  res.sendStatus(404);
 });
 
 app.post("/api/contacts", (req, res) => {
@@ -50,7 +49,18 @@ app.post("/api/contacts", (req, res) => {
   res.sendStatus(201);
 });
 
-app.put("/api/contacts/:id",(req,res)=>{})
+app.put("/api/contacts/:id", (req, res) => {
+  const id = req.params.id;
+  const body = req.body;
+  const contact = contacts.find((contact) => contact.id == id);
+  if (contact) {
+    contact.name = body.name;
+    contact.phone = body.phone;
+    contact.email = body.email;
+    return res.status(200).send(contact);
+  }
+  return res.sendStatus(404);
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
