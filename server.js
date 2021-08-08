@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 const app = express();
 
@@ -40,7 +41,16 @@ app.get("/api/contacts/:id", (req, res) => {
   }
 });
 
-app.post("/api/contacts", (req, res) => {});
+app.post("/api/contacts", (req, res) => {
+  const contact = req.body;
+  if (!contact.name || !contact.phone || !contact.email) {
+    return res.status(400).json("Missing name, phone or email");
+  }
+  contacts.push(contact);
+  res.sendStatus(201);
+});
+
+app.put("/api/contacts/:id",(req,res)=>{})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
