@@ -2,6 +2,8 @@ import express from "express";
 
 const app = express();
 
+app.use(express.json());
+
 const contacts = [
   {
     id: 1,
@@ -36,6 +38,8 @@ app.get("/api/contacts/:id", (req, res) => {
     res.sendStatus(404);
   }
 });
+
+app.post("/api/contacts", (req, res) => {});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
