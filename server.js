@@ -45,7 +45,7 @@ app.post("/api/contacts", (req, res) => {
   if (!contact.name || !contact.phone || !contact.email) {
     return res.status(400).json("Missing name, phone or email");
   }
-  contacts.push(contact);
+  contacts.push({ ...contact, id: contacts.length + 1 });
   res.sendStatus(201);
 });
 
@@ -58,6 +58,16 @@ app.put("/api/contacts/:id", (req, res) => {
     contact.phone = body.phone;
     contact.email = body.email;
     return res.status(200).send(contact);
+  }
+  return res.sendStatus(404);
+});
+
+app.delete("/api/contacts/:id", (req, res) => {
+  const id = req.params.id;
+  const contact = contacts.find((contact) => contact.id == id);
+  if (contact) {
+    contacts.splice(contacts.indexOf(contact), 1);
+    return res.sendStatus(200);
   }
   return res.sendStatus(404);
 });
