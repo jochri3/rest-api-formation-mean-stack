@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-const contactRoutes = Router();
+export const contactRoutes = Router();
 
 contactRoutes.get("/", (req, res) => {
   res.status(200).json("Tous les contacts");
@@ -21,5 +21,3 @@ contactRoutes.put("/:id", (req, res) => {
 contactRoutes.delete("/:id", (req, res) => {
   res.status(200).json(`Suppression contact`);
 });
-
-export default contactRoutes;
