@@ -23,7 +23,7 @@ const contacts = [
   },
 ];
 
-app.get("/", (req, res) => {
+app.get("/api/contacts", (req, res) => {
   res.send(contacts);
 });
 
