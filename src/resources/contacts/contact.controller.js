@@ -1,4 +1,5 @@
 import Contact from "./contact.model.js";
+import _ from "lodash";
 
 const findAll = async (req, res) => {
   try {
@@ -33,7 +34,7 @@ const create = async (req, res) => {
   try {
     const contact = new Contact(req.body);
     await contact.save();
-    res.json(contact);
+    res.json(_.pick(contact, ["id", "name", "email", "phone"]));
   } catch (error) {
     console.error(error);
     res.status(500).send(error);
