@@ -22,7 +22,26 @@ const findOne = async (req, res) => {
   }
 };
 
+const create = async (req, res) => {
+  //valite input
+  const { name, email, phone } = req.body;
+  if (!name || !email || !phone) {
+    return res.status(400).send({
+      message: "Veuillez remplir tous les champs svp",
+    });
+  }
+  try {
+    const contact = new Contact(req.body);
+    await contact.save();
+    res.json(contact);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+};
+
 export default {
   findAll,
   findOne,
+  create,
 };

@@ -7,9 +7,7 @@ contactRoutes.get("/", ContactController.findAll);
 
 contactRoutes.get("/:id", ContactController.findOne);
 
-contactRoutes.post("/", (req, res) => {
-  res.status(201).json(`Nouveau contact`);
-});
+contactRoutes.post("/", ContactController.create);
 
 contactRoutes.put("/:id", (req, res) => {
   res.status(200).json(`Modification contact`);
