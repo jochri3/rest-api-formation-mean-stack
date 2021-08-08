@@ -5,9 +5,7 @@ export const contactRoutes = Router();
 
 contactRoutes.get("/", ContactController.findAll);
 
-contactRoutes.get("/:id", (req, res) => {
-  res.status(200).json(`Un seul contact`);
-});
+contactRoutes.get("/:id", ContactController.findOne);
 
 contactRoutes.post("/", (req, res) => {
   res.status(201).json(`Nouveau contact`);
