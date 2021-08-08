@@ -2,11 +2,11 @@
   "name": "express-mean-stack",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "src/app.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon",
-    "prod": "node server.js"
+    "prod": "node src/app.js"
   },
   "keywords": [],
   "author": "",
