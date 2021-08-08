@@ -1,5 +1,10 @@
 import express from "express";
 import cors from "cors";
+import { getConnection } from "./lib/connections/mongodb.js";
+
+getConnection()
+  .then(() => console.log("Connexion à la base de données établie"))
+  .catch((error) => logger.info(error));
 
 const app = express();
 
