@@ -27,6 +27,16 @@ app.get("/api/contacts", (req, res) => {
   res.send(contacts);
 });
 
+app.get("/api/contacts/:id", (req, res) => {
+  const id = req.params.id;
+  const contact = contacts.find((contact) => contact.id == id);
+  if (contact) {
+    res.send(contact);
+  } else {
+    res.sendStatus(404);
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
