@@ -8,10 +8,12 @@ const ContactSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   phone: {
     type: String,
     required: true,
+    unique: true,
   },
   status: {
     type: String,
