@@ -1,10 +1,9 @@
 import { Router } from "express";
+import ContactController from "./contact.controller.js";
 
 export const contactRoutes = Router();
 
-contactRoutes.get("/", (req, res) => {
-  res.status(200).json("Tous les contacts");
-});
+contactRoutes.get("/", ContactController.findAll);
 
 contactRoutes.get("/:id", (req, res) => {
   res.status(200).json(`Un seul contact`);
