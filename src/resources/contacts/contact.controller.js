@@ -1,30 +1,31 @@
 import Contact from "./contact.model.js";
 import _ from "lodash";
 
-const findAll = async (req, res) => {
+const findAll = async (_, res) => {
   try {
-    const contacts = await Contact.find();
+    const contacts = await Contact.find().select("name phone email status");
     res.json(contacts);
   } catch (error) {
     console.error(error);
-    res.status(500).send(error);
+    res.sendStatus(500);
   }
 };
 
 const findOne = async (req, res) => {
   const { id } = req.params;
   try {
-    const contact = await Contact.findById(id);
+    const contact = await Contact.findById(id).select(
+      "name phone email status"
+    );
     if (!contact) return res.status(404).send({ message: "Not Found" });
-    res.json(contact);
+    res.status(200).json(contact);
   } catch (error) {
     console.error(error);
-    res.status(500).send(error);
+    res.sendStatus(500);
   }
 };
 
 const create = async (req, res) => {
-  //valite input
   const { name, email, phone } = req.body;
   if (!name || !email || !phone) {
     return res.status(400).send({
@@ -34,10 +35,10 @@ const create = async (req, res) => {
   try {
     const contact = new Contact(req.body);
     await contact.save();
-    res.json(_.pick(contact, ["id", "name", "email", "phone"]));
+    res.status(201).send(_.pick(contact, ["id", "name", "email", "phone"]));
   } catch (error) {
     console.error(error);
-    res.status(500).send(error);
+    res.sendStatus(500);
   }
 };
 
@@ -54,10 +55,22 @@ const update = async (req, res) => {
       new: true,
     });
     if (!contact) return res.status(404).send({ message: "Not Found" });
-    res.json(contact);
+    res.json(_.pick(contact, ["id", "name", "email", "phone"]));
   } catch (error) {
     console.error(error);
-    res.status(500).send(error);
+    res.sendStatus(500);
+  }
+};
+
+const destroy = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const contact = await Contact.findByIdAndRemove(id);
+    if (!contact) return res.status(404).send({ message: "Not Found" });
+    res.sendStatus(204);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
   }
 };
 
@@ -66,4 +79,5 @@ export default {
   findOne,
   create,
   update,
+  destroy,
 };

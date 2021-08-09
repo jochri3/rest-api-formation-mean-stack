@@ -11,6 +11,4 @@ contactRoutes.post("/", ContactController.create);
 
 contactRoutes.put("/:id", ContactController.update);
 
-contactRoutes.delete("/:id", (req, res) => {
-  res.status(200).json(`Suppression contact`);
-});
+contactRoutes.delete("/:id", ContactController.destroy);
