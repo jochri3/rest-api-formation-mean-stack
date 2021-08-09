@@ -1,6 +1,6 @@
 import Contact from "../resources/contacts/contact.model.js";
 
-module.exports = async (req, res, next) => {
+const contactsExists = async (req, res, next) => {
   const { id } = req.params;
   if (!id) {
     return res.status(404).send({ message: "not found" });
@@ -12,3 +12,5 @@ module.exports = async (req, res, next) => {
   req.contact = contact;
   next();
 };
+
+export default contactsExists;
