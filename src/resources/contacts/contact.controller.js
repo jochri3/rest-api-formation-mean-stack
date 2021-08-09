@@ -41,8 +41,29 @@ const create = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  const { id } = req.params;
+  const { name, email, phone } = req.body;
+  if (!name || !email || !phone) {
+    return res.status(400).send({
+      message: "Veuillez remplir tous les champs svp",
+    });
+  }
+  try {
+    const contact = await Contact.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    if (!contact) return res.status(404).send({ message: "Not Found" });
+    res.json(contact);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+};
+
 export default {
   findAll,
   findOne,
   create,
+  update,
 };

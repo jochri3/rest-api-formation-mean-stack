@@ -9,9 +9,7 @@ contactRoutes.get("/:id", ContactController.findOne);
 
 contactRoutes.post("/", ContactController.create);
 
-contactRoutes.put("/:id", (req, res) => {
-  res.status(200).json(`Modification contact`);
-});
+contactRoutes.put("/:id", ContactController.update);
 
 contactRoutes.delete("/:id", (req, res) => {
   res.status(200).json(`Suppression contact`);
