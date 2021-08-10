@@ -5,12 +5,17 @@ const contactsExists = async (req, res, next) => {
   if (!id) {
     return res.status(404).send({ message: "not found" });
   }
-  const contact = await Contact.findById(id);
-  if (!contact.length) {
-    return res.status(404).send({ message: "not found" });
+  try {
+    const contact = await Contact.findById(id);
+    if (!contact.length) {
+      return res.status(404).send({ message: "not found" });
+    }
+    req.contact = contact;
+    next();
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
   }
-  req.contact = contact;
-  next();
 };
 
 export default contactsExists;

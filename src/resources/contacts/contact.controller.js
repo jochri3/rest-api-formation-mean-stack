@@ -12,17 +12,8 @@ const findAll = async (_, res) => {
 };
 
 const findOne = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const contact = await Contact.findById(id).select(
-      "name phone email status"
-    );
-    if (!contact) return res.status(404).send({ message: "Not Found" });
-    res.status(200).json(contact);
-  } catch (error) {
-    console.error(error);
-    res.sendStatus(500);
-  }
+  const contact = req.contact;
+  res.status(200).json(contact);
 };
 
 const create = async (req, res) => {
