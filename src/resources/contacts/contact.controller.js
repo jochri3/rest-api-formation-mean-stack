@@ -1,5 +1,6 @@
 import Contact from "./contact.model.js";
 import _ from "lodash";
+import { json } from "express";
 
 const findAll = async (_, res) => {
   try {
@@ -54,10 +55,9 @@ const update = async (req, res) => {
 };
 
 const destroy = async (req, res) => {
-  const { id } = req.params;
+  const { _id } = req.contact;
   try {
-    const contact = await Contact.findByIdAndRemove(id);
-    if (!contact) return res.status(404).send({ message: "Not Found" });
+    await Contact.remove(_id);
     res.sendStatus(204);
   } catch (error) {
     console.error(error);

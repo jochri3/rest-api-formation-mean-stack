@@ -6,8 +6,8 @@ const contactsExists = async (req, res, next) => {
     return res.status(404).send({ message: "not found" });
   }
   try {
-    const contact = await Contact.findById(id);
-    if (!contact.length) {
+    const contact = await Contact.findById(id).select('name email phone status');
+    if (!contact) {
       return res.status(404).send({ message: "not found" });
     }
     req.contact = contact;
