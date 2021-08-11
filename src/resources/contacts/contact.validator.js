@@ -1,7 +1,7 @@
 import Validate from "../../lib/validator.js";
 import Contact from "./contact.model.js";
 
-export default function validate(body, method = "POST") {
+export default async function validate(body, method = "POST") {
   const valid = {
     errors: {},
     isValid: true,
@@ -11,26 +11,22 @@ export default function validate(body, method = "POST") {
   }
 
   //   EMAIL
+  const emailIsUsed = await emailExists(body.email);
   if (!Validate.isRequired(body.email)) {
     valid.errors.email = "Please enter your email";
-  }
-  if (!Validate.isEmail(body.email)) {
+  } else if (!Validate.isEmail(body.email)) {
     valid.errors.email = "Please enter a valid email";
-  }
-
-  if (method === "POST" && emailExists(body.email)) {
+  } else if (method === "POST" && emailIsUsed) {
     valid.errors.email = "Email already exists";
   }
 
   //   PHONE
+  const phoneIsUsed = await phoneExists(body.phone);
   if (!Validate.isRequired(body.phone)) {
     valid.errors.phone = "Please enter your phone";
-  }
-  if (!Validate.isValidPhone(body.phone)) {
+  } else if (!Validate.isValidPhone(body.phone)) {
     valid.errors.phone = "Please enter a valid phone";
-  }
-
-  if (method === "POST" && phoneExists(body.phone)) {
+  } else if (method === "POST" && phoneIsUsed) {
     valid.errors.phone = "Phone already exists";
   }
 
