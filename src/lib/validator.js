@@ -15,7 +15,7 @@ export default class Validate {
   }
 
   static isRequired(value) {
-    return value.length > 0 && value !== "undefined";
+    return value?.length > 0 && value !== 'undefined';
   }
 
   static isMinMax(value, min, max) {
@@ -23,6 +23,6 @@ export default class Validate {
   }
 
   static isValidStatus(value) {
-    return value === "active" || value === "inactive";
+    return value === 'active' || value === 'inactive';
   }
 }

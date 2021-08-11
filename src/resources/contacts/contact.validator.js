@@ -1,50 +1,61 @@
-import Validate from "../../lib/validator";
-import Contact from "../resources/contacts/contact.model";
+import Validate from "../../lib/validator.js";
+import Contact from "./contact.model.js";
 
-export default function validateContact(body) {
-  const errors = {};
+export default function validate(body, method = "POST") {
+  const valid = {
+    errors: {},
+    isValid: true,
+  };
   if (!Validate.isRequired(body.name)) {
-    errors.name = "Please enter your name";
+    valid.errors.name = "Please enter your name";
   }
 
   //   EMAIL
   if (!Validate.isRequired(body.email)) {
-    errors.email = "Please enter your email";
+    valid.errors.email = "Please enter your email";
   }
   if (!Validate.isEmail(body.email)) {
-    errors.email = "Please enter a valid email";
+    valid.errors.email = "Please enter a valid email";
   }
 
-  if (emailExists(body.email)) {
-    errors.email = "Email already exists";
+  if (method === "POST" && emailExists(body.email)) {
+    valid.errors.email = "Email already exists";
   }
 
   //   PHONE
   if (!Validate.isRequired(body.phone)) {
-    errors.phone = "Please enter your phone";
+    valid.errors.phone = "Please enter your phone";
   }
   if (!Validate.isValidPhone(body.phone)) {
-    errors.phone = "Please enter a valid phone";
+    valid.errors.phone = "Please enter a valid phone";
   }
 
-  if (phoneExists(body.phone)) {
-    errors.phone = "Phone already exists";
+  if (method === "POST" && phoneExists(body.phone)) {
+    valid.errors.phone = "Phone already exists";
   }
 
   // STATUS
-  if (!Validate.isRequired(body.status)) {
-    errors.status = "Please enter your status";
+  if (body.status && !Validate.isValidStatus(body.status)) {
+    valid.errors.status = "Please enter a valid status";
   }
-  if (!Validate.isValidStatus(body.status)) {
-    errors.status = "Please enter a valid status";
+
+  if (
+    valid.errors.email ||
+    valid.errors.phone ||
+    valid.errors.status ||
+    valid.errors.name
+  ) {
+    valid.isValid = false;
+  } else {
+    valid.isValid = true;
   }
-  return errors;
+  return valid;
 }
 
-function emailExists(email) {
-  return Contact.find({ email: email }, { email: 1 }).count() > 0;
+async function emailExists(email) {
+  return (await Contact.find({ email: email }, { email: 1 }).count()) > 0;
 }
 
-function phoneExists(phone) {
-  return Contact.find({ phone: phone }, { phone: 1 }).count() > 0;
+async function phoneExists(phone) {
+  return (await Contact.find({ phone: phone }, { phone: 1 }).count()) > 0;
 }

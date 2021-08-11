@@ -17,12 +17,6 @@ const findOne = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const { name, email, phone } = req.body;
-  if (!name || !email || !phone) {
-    return res.status(400).send({
-      message: "Veuillez remplir tous les champs svp",
-    });
-  }
   try {
     const contact = new Contact(req.body);
     await contact.save();
@@ -35,12 +29,6 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   const contact = req.contact;
-  const { name, email, phone } = req.body;
-  if (!name || !email || !phone) {
-    return res.status(400).send({
-      message: "Veuillez remplir tous les champs svp",
-    });
-  }
   try {
     _.merge(contact, req.body);
     await contact.save();
