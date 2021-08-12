@@ -2,7 +2,7 @@
 
 ## Comment démarrer le projet:
 
-1. Cloner ce repository
+1. Cloner ce repository : `git clone https://github.com/jochri3/rest-api-formation-mean-stack.git`
 
 2. Installer les dépendances : `npm install`
 
