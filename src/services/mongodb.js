@@ -2,12 +2,17 @@ import mongoose from "mongoose";
 import { config } from "dotenv";
 let count = 0;
 
+//TODO:Update this to use the config.json file
 const options = {
+  autoIndex: false, // Don't build indexes
+  poolSize: 10, // Maintain up to 10 socket connections
+  // If not connected, return errors immediately rather than waiting for reconnect
+  bufferMaxEntries: 0,
+  // all other approaches are now deprecated by MongoDB:
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
 config();
-// import { getConnection } from "lib/connections/mongoose";
 
 export const connectWithRetry = () =>
   mongoose
@@ -20,6 +25,5 @@ export const connectWithRetry = () =>
       console.log("Retry after after 5 seconds", ++count);
       setTimeout(connectWithRetry, 5000);
     });
-   
 
 export default mongoose;

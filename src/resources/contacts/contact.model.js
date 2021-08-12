@@ -1,4 +1,4 @@
-import mongoose from "../../services/connections/mongodb.js";
+import mongoose from "../../services/mongodb.js";
 
 const ContactSchema = new mongoose.Schema(
   {
