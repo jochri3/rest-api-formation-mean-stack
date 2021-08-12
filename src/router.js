@@ -1,1 +1,1 @@
-export * from "./resources/contacts/contact.routes.js";
+export * from "./resources/contact/contact.routes.js";

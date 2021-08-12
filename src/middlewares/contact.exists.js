@@ -1,4 +1,4 @@
-import Contact from "../resources/contacts/contact.model.js";
+import Contact from "../resources/contact/contact.model.js";
 
 export default async function contactsExists(req, res, next) {
   const { id } = req.params;
