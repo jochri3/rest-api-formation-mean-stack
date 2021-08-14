@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-import { config } from 'dotenv-flow'
+const mongoose = require('mongoose')
+const { config } = require('dotenv-flow')
 let count = 0
 
 //TODO:Update this to use the config.json file
@@ -14,7 +14,7 @@ const options = {
 }
 config()
 
-export const connectWithRetry = () =>
+const connectWithRetry = () =>
   mongoose
     .connect(process.env.DATABASE_URL, options)
     .then(() => {
@@ -26,4 +26,4 @@ export const connectWithRetry = () =>
       setTimeout(connectWithRetry, 5000)
     })
 
-export default mongoose
+module.exports = { mongoose, connectWithRetry }

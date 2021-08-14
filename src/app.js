@@ -1,7 +1,7 @@
-import express from 'express'
-import cors from 'cors'
-import { connectWithRetry } from './services/mongodb.js'
-import { contactRoutes } from './router.js'
+const express = require('express')
+const cors = require('cors')
+const { connectWithRetry } = require('./services/mongodb.js')
+const { contactRoutes } = require('./router.js')
 
 connectWithRetry()
 
@@ -20,4 +20,4 @@ const server = app.listen(PORT, () => {
   console.log(`REST API Server listening on port ${PORT}`)
 })
 
-export default server
+module.exports = server

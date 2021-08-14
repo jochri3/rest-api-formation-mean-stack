@@ -1,4 +1,4 @@
-import mongoose from "../../services/mongodb.js";
+const { mongoose } = require('../../services/mongodb.js')
 
 const ContactSchema = new mongoose.Schema(
   {
@@ -18,15 +18,15 @@ const ContactSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["active", "inactive"],
-      default: "active",
+      enum: ['active', 'inactive'],
+      default: 'active',
     },
   },
   {
     timestamps: true,
   }
-);
+)
 
-const Contact = mongoose.model("Contact", ContactSchema);
+const Contact = mongoose.model('Contact', ContactSchema)
 
-export default Contact;
+module.exports = Contact

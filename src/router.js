@@ -1,1 +1,1 @@
-export * from './resources/contact/contact.routes.js'
+module.exports = require('./resources/contact/contact.routes.js')
