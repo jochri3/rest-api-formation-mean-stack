@@ -30,10 +30,12 @@ const create = async (req, res) => {
 }
 
 const update = async (req, res) => {
+  const io = req.app.get('socketio')
   const contact = req.contact
   try {
     _.merge(contact, req.body)
     await contact.save()
+    io.emit('contact:update', contact)
     res.sendStatus(200)
   } catch (error) {
     console.error(error)
