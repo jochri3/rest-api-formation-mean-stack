@@ -36,6 +36,13 @@
 - `PUT /api/contacts/:id` : Mettre à jour contact
 - `DELETE /api/contacts/:id` : Supprimer un contact
 
+### Pour les méthodes `POST` et `PUT`, vous devez envoyer les données suivantes
+
+- `name`:`string` obligatoire
+- `phone`:`string` obligatoire
+- `email`: `string` et `email` valide
+- `status` : `string` pouvant être `active/inactive`, mais n'est pas un champ obligatoire,car il est par défaut `active`
+
 ## Event websocket
 
 - `POST /api/contacts` : Le serveur emmet un `contact:create` avec la ressource créée
