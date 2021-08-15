@@ -17,9 +17,11 @@ const findOne = async (req, res) => {
 }
 
 const create = async (req, res) => {
+  const io = req.app.get('socketio')
   try {
     const contact = new Contact(req.body)
     await contact.save()
+    io.emit('contact:create', contact)
     res.sendStatus(201)
   } catch (error) {
     console.error(error)
