@@ -44,9 +44,11 @@ const update = async (req, res) => {
 }
 
 const destroy = async (req, res) => {
+  const io = req.app.get('socketio')
   const contact = req.contact
   try {
     await contact.remove()
+    io.emit('contact:destroy')
     res.sendStatus(204)
   } catch (error) {
     console.error(error)
