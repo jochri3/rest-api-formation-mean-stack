@@ -24,6 +24,10 @@
 - Lancement `prod` : `>npm run prod`
 - Lancement `dev` : `>npm run dev`
 
+## Tests
+
+`npm run test`
+
 ## API
 
 - `GET /api/contacts` : Lister tous les contacts
