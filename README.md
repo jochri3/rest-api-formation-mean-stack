@@ -31,3 +31,10 @@
 - `POST /api/contacts` : Créer un contact
 - `PUT /api/contacts/:id` : Mettre à jour contact
 - `DELETE /api/contacts/:id` : Supprimer un contact
+
+## Event websocket
+
+- `POST /api/contacts` : Le serveur emmet un `contact:create` avec la ressource créée
+- `PUT /api/contacts/:id` : Le serveur emmet un `contact:update` avec la ressource mise à jour
+- `DELETE /api/:id` : Le serveur emmet un `contact:destroy` sans données
+- Au remplissage du formulaire le client emet un event `filling-form` et reçois du serveur `other-filling-form`.
