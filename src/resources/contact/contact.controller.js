@@ -36,7 +36,7 @@ const update = async (req, res) => {
     _.merge(contact, req.body)
     await contact.save()
     io.emit('contact:update', contact)
-    res.sendStatus(200)
+    res.status(200).send(contact)
   } catch (error) {
     console.error(error)
     res.sendStatus(500)
