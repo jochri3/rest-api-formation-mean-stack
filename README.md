@@ -49,3 +49,4 @@
 - `PUT /api/contacts/:id` : Le serveur emmet un `contact:update` avec la ressource mise à jour
 - `DELETE /api/:id` : Le serveur emmet un `contact:destroy` sans données
 - Au remplissage du formulaire le client emet un event `filling-form` et reçois du serveur `other-filling-form`.
+- Quand l'on a terminé le remplir le formulaire, le client emet : `form-filling-stop`, et réponse le serveur emet `other-form-filling-stop`

@@ -26,6 +26,10 @@ io.on('connection', (socket) => {
   socket.on('filling-form', () => {
     socket.broadcast.emit('other-filling-form')
   })
+
+  socket.on('form-filling-stop', () => {
+    socket.broadcast.emit('other-form-filling-stop')
+  })
 })
 
 const PORT = process.env.PORT || 3000
