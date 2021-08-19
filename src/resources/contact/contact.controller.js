@@ -23,7 +23,7 @@ const create = async (req, res) => {
     await contact.save()
     io.emit('contact:create', contact)
     res
-      .statut(201)
+      .status(201)
       .send(_.pick(contact, ['_id', 'name', 'phone', 'email', 'status']))
   } catch (error) {
     console.error(error)
