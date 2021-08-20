@@ -24,11 +24,11 @@ app.all('*', (_, res) => {
 
 io.on('connection', (socket) => {
   socket.on('filling-form', () => {
-    socket.broadcast.emit('other-filling-form')
+    socket.broadcast.emit('another-filling-form')
   })
 
-  socket.on('form-filling-stop', () => {
-    socket.broadcast.emit('other-form-filling-stop')
+  socket.on('stop-filling-form', () => {
+    socket.broadcast.emit('another-stop-filling-form')
   })
 })
 
