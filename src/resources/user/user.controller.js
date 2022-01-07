@@ -1,12 +1,8 @@
 const User = require('./user.model')
-const jwt = require('jsonwebtoken')
 const _ = require('lodash')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt') //TODO : Add this abstraction loguc inside the users model
 
-
-
-
-const auth = (req, res) => {
+const auth = async (req, res) => {
   const { body } = req
   let user = await User.findOne({ email: body.email })
   if (!user) return res.status(400).json('email et/ou mot de passe incorrect')
@@ -17,7 +13,7 @@ const auth = (req, res) => {
   res.send(token)
 }
 
-const create = (req, res) => {
+const create = async (req, res) => {
   const { body } = req
   try {
     let user = await User.findOne({ email: body.email })
@@ -35,7 +31,14 @@ const create = (req, res) => {
   } catch (error) {}
 }
 
+// auth middleware
+const me = async (req, res) => {
+  const user = await User.findById(req.user._id).select('-password')
+  res.send(user)
+}
+
 module.exports = {
   auth,
   create,
+  me,
 }
