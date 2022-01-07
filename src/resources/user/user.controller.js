@@ -33,7 +33,7 @@ const create = async (req, res) => {
 
 // auth middleware
 const me = async (req, res) => {
-  const user = await User.findById(req.user._id).select('-password')
+  const user = await User.findById(req.user._id).select('-password') //We cannot send password
   res.send(user)
 }
 
