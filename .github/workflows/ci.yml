@@ -6,8 +6,8 @@ on:
     branches: [ develop , main ]
 
 jobs:
-  environment: test
   build:
+    environment: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,6 +19,6 @@ jobs:
         run: npm i
       - name : Run tests
         env:
-          DATABASE_URL: {{ secrets.DATABASE_URL }}
-          JWT_PRIVATE_KEY: {{ secrets.JWT_PRIVATE_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
         run: npm run test
