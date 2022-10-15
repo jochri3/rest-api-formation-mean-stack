@@ -6,13 +6,10 @@ on:
     branches: [ develop , main ]
 
 jobs:
+  environment: test
   build:
     runs-on: ubuntu-latest
-    environment: test
     steps:
-      env:
-        DATABASE_URL: { { secrets.DATABASE_URL } }
-        JWT_PRIVATE_KEY: { { secrets.JWT_PRIVATE_KEY } }
       - uses: actions/checkout@v2
       - name: Use Node.js version 16
         uses: actions/setup-node@v2
@@ -21,4 +18,7 @@ jobs:
       - name : Install dependencies
         run: npm i
       - name : Run tests
+        env:
+          DATABASE_URL: {{ secrets.DATABASE_URL }}
+          JWT_PRIVATE_KEY: {{ secrets.JWT_PRIVATE_KEY }}
         run: npm run test
